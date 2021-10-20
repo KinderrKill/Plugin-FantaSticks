@@ -1,0 +1,41 @@
+import static fr.il_totore.manadrop.MinecraftDependencyHelper.spigotApi
+import static fr.il_totore.manadrop.MinecraftRepositoryHelper.*
+
+plugins {
+    id 'java'
+    id 'fr.il_totore.manadrop' version '0.4.1-SNAPSHOT'
+}
+
+group 'fr.kinderrkill.fantasticks'
+version '0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    spigotSnapshot()
+    sonatype()
+}
+
+dependencies {
+    implementation spigotApi('1.17.1')
+}
+
+checkYaml {
+    check file('src/main/resources/plugin.yml')
+    stopOnError true
+}
+
+spigot {
+    desc {
+        named 'FantaSticks'
+        version project.version
+        authors 'KinderrKill'
+        main 'fr.kinderrkill.fantasticks.FantaSticks'
+    }
+}
+processResources.dependsOn(checkYaml)
+processResources.finalizedBy(spigotPlugin)
+
+tasks.withType(Jar) {
+    def outputDirectory = project.findProperty('spigot117.pluginDirectory') ?: "$buildDir/libs"
+    destinationDirectory = file(outputDirectory)
+}

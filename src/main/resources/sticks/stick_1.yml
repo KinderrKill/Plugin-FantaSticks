@@ -1,0 +1,6 @@
+name: "Stick de test"
+texture: ""
+durability:
+spell:
+  type: damage
+  amount: 10
