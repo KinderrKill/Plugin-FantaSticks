@@ -1,20 +1,27 @@
 package fr.kinderrkill.fantasticks.objects;
 
+import fr.kinderrkill.fantasticks.utils.ItemBuilder;
+import org.bukkit.Material;
+import org.bukkit.entity.Item;
+import org.bukkit.inventory.ItemStack;
+
 import java.util.Random;
 
 public class CustomStick {
 
     private final String name;
+    private final int id;
     private final String texture;
     private final int durability;
-    private final Spell type;
+    private final Spell spell;
     private final double amountMin, amountMax;
 
-    public CustomStick(String name, String texture, int durability, Spell type, String amount) {
+    public CustomStick(String name, int id, String texture, int durability, Spell spell, String amount) {
         this.name = name;
+        this.id = id;
         this.texture = texture;
         this.durability = durability;
-        this.type = type;
+        this.spell = spell;
         if (amount.contains(":")) {
             this.amountMin = Double.parseDouble(amount.split(":")[0]);
             this.amountMax = Double.parseDouble(amount.split(":")[1]);
@@ -28,6 +35,10 @@ public class CustomStick {
         return name;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getTexture() {
         return texture;
     }
@@ -36,8 +47,8 @@ public class CustomStick {
         return durability;
     }
 
-    public Spell getType() {
-        return type;
+    public Spell getSpell() {
+        return spell;
     }
 
     public double getAmount() {
@@ -46,10 +57,18 @@ public class CustomStick {
         return amountMin == amountMax ? amountMax : finalValue;
     }
 
-    //Do getItemStack()
+    public ItemStack getItemStack() {
+        return new ItemBuilder(Material.STICK)
+                .setName(name)
+                .getItem();
+    }
 
     public enum Spell {
-        DAMAGE("damage"),
+        FIREBALL("fireball"),
+        FROSTBALL("frostball"),
+        RAIL("rail"),
+        HEAL("heal"),
+        POTION("potion"),
         ;
 
         private final String type;

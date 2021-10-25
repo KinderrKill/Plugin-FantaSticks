@@ -30,6 +30,12 @@ spigot {
         version project.version
         authors 'KinderrKill'
         main 'fr.kinderrkill.fantasticks.FantaSticks'
+
+        command {
+            named 'FantaSticks'
+            description 'Stick give command'
+            aliases  'ft', 'stick'
+        }
     }
 }
 processResources.dependsOn(checkYaml)

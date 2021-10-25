@@ -1,6 +1,8 @@
 package fr.kinderrkill.fantasticks;
 
+import fr.kinderrkill.fantasticks.commands.StickCommands;
 import fr.kinderrkill.fantasticks.listeners.StickListener;
+import fr.kinderrkill.fantasticks.managers.SpellManager;
 import fr.kinderrkill.fantasticks.managers.StickManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -16,7 +18,8 @@ public class FantaSticks extends JavaPlugin {
     public ConsoleCommandSender console = null;
 
     // Manager
-    private StickManager stickManager;
+    public StickManager stickManager;
+    public SpellManager spellManager;
 
     public void onEnable() {
         instance = this;
@@ -24,6 +27,7 @@ public class FantaSticks extends JavaPlugin {
 
         // Init managers
         this.stickManager = new StickManager(this);
+        this.spellManager = new SpellManager(this);
 
         // Init basics
         this.registerListeners();
@@ -44,7 +48,7 @@ public class FantaSticks extends JavaPlugin {
     }
 
     private void registerCommands() {
-
+        getCommand("FantaSticks").setExecutor(new StickCommands(this));
     }
 
     // Utils
